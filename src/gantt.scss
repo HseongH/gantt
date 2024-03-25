@@ -1,0 +1,380 @@
+$bar-color: #f8f8f8 !default;
+$bar-stroke: #8d99a6 !default;
+$border-right-color: #515256 !default;
+$border-color: #b0b0b2 !default;
+$light-bg: rgba(51, 51, 51, 0.325) !default;
+$light-border-color: #ebeff2 !default;
+$light-yellow: #fcf8e3 !default;
+$text-muted: #666 !default;
+$text-light: #555 !default;
+$text-color: #fff !default;
+$blue: #a4c6ff !default;
+$handle-color: #ddd !default;
+$selected: rgba(229, 96, 59, 0.2) !default;
+
+.hide {
+    display: none;
+}
+
+.wrapper {
+    display: flex;
+    border-top: 1px solid $border-right-color;
+    position: relative;
+}
+
+.table-container {
+    flex: 1;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    &:hover::-webkit-scrollbar-track {
+        background-color: #414141;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: #784a3d;
+    }
+
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+    }
+
+    table {
+        min-width: 100%;
+        color: $text-color;
+        font-weight: 400;
+        font-size: 12px;
+        border-collapse: collapse;
+        border-spacing: 0;
+
+        .table-header {
+            position: relative;
+            background: #41434a;
+            z-index: 9;
+        }
+
+        .table-header tr th,
+        .table-body tr td {
+            min-width: 25px;
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            -ms-text-overflow: ellipsis;
+            padding: 0 7px;
+            box-sizing: border-box;
+        }
+
+        .table-body {
+            tr {
+                &:first-child {
+                    height: 37px !important;
+                }
+
+                &:nth-child(odd) {
+                    background-color: $light-bg;
+                }
+
+                &.dragging {
+                    opacity: 0.5;
+                    border: 2px dashed red;
+                }
+
+                &.selected {
+                    background-color: $selected;
+                }
+
+                td {
+                    border-right: 2px solid $border-right-color;
+
+                    &.draggable-item {
+                        padding: 0 12px;
+                    }
+
+                    &.wbs {
+                        border-right: 0 none;
+                    }
+
+                    &.work-name {
+                        position: relative;
+
+                        &:before,
+                        .row-line:before {
+                            content: '';
+                            position: absolute;
+                            left: 8px;
+                            top: 0;
+                            bottom: 0;
+                            border-left: 1px dotted rgba(153, 153, 153, 1);
+                        }
+
+                        ins {
+                            display: inline-block;
+                            text-decoration: none;
+                            height: 100%;
+                            margin: 0;
+                            padding: 0;
+
+                            &:nth-child(1):before {
+                                left: 28px;
+                            }
+
+                            &:nth-child(2):before {
+                                left: 48px;
+                            }
+
+                            &:nth-child(3):before {
+                                left: 68px;
+                            }
+
+                            &.marker {
+                                width: 18px;
+                                height: 18px;
+                                background-image: url(313devgrp.png);
+                                background-position: -36px 2px;
+                                background-repeat: no-repeat;
+                                background-color: transparent;
+                            }
+                        }
+
+                        &.indent-1-first:before {
+                            top: 50%;
+                        }
+
+                        &.indent-1-last::before,
+                        &.indent-2-last ins:last-child::before,
+                        &.indent-3-last ins:last-child::before,
+                        &.indent-4-last ins:last-child::before,
+                        &.indent-5-last ins:last-child::before {
+                            bottom: 50%;
+                        }
+                    }
+
+                    @for $i from 1 through 5 {
+                        &.indent-#{$i} {
+                            padding-left: 20px * ($i - 1);
+                        }
+                    }
+
+                    &[rel='folder'].opened > ins {
+                        background-position: -72px 2px;
+                    }
+
+                    &[rel='folder'].closed > ins {
+                        background-position: -54px 0;
+                    }
+                }
+
+                &:last-child td:first-child {
+                    background: transparent;
+                }
+
+                &.root-last ~ tr .work-name:before {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.split-bar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9;
+    width: 5px;
+    height: 100%;
+    border-radius: 2.5px;
+    background-color: $border-right-color;
+    cursor: col-resize;
+
+    &:hover {
+        background-color: $blue;
+    }
+}
+
+.gantt {
+    .grid-background {
+        fill: transparent;
+    }
+    .grid-header {
+        fill: #41434a;
+    }
+    .grid-row {
+        fill: transparent;
+
+        &:nth-child(odd) {
+            fill: $light-bg;
+        }
+
+        &.selected {
+            fill: $selected;
+        }
+    }
+    .row-line {
+        stroke: $light-border-color;
+    }
+    .tick {
+        stroke: $border-color;
+        stroke-width: 0.2;
+        &.thick {
+            stroke-width: 0.4;
+        }
+    }
+    .today-highlight {
+        fill: rgb(97, 97, 97);
+        opacity: 0.5;
+    }
+
+    .arrow {
+        fill: none;
+        stroke: $text-muted;
+        stroke-width: 1.4;
+    }
+
+    .bar {
+        fill: $bar-color;
+        stroke: $bar-stroke;
+        stroke-width: 0;
+        transition: stroke-width 0.3s ease;
+        user-select: none;
+    }
+    .bar-progress {
+        fill: $blue;
+    }
+    .bar-invalid {
+        fill: transparent;
+        stroke: $bar-stroke;
+        stroke-width: 1;
+        stroke-dasharray: 5;
+
+        & ~ .bar-label {
+            fill: $text-light;
+        }
+    }
+    .bar-label {
+        fill: #333;
+        dominant-baseline: central;
+        text-anchor: middle;
+        font-size: 12px;
+        font-weight: lighter;
+
+        &.big {
+            fill: $handle-color;
+            text-anchor: start;
+        }
+    }
+
+    .handle {
+        fill: $handle-color;
+        cursor: ew-resize;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+    }
+
+    .bar-wrapper {
+        cursor: pointer;
+        outline: none;
+
+        &:hover {
+            .bar {
+                fill: darken($bar-color, 5);
+            }
+
+            .bar-progress {
+                fill: darken($blue, 5);
+            }
+
+            .handle {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        &.active {
+            .bar {
+                fill: darken($bar-color, 5);
+            }
+
+            .bar-progress {
+                fill: darken($blue, 5);
+            }
+        }
+    }
+
+    .lower-text,
+    .upper-text {
+        font-size: 12px;
+        text-anchor: middle;
+    }
+
+    .hide {
+        display: none;
+    }
+}
+
+.gantt-container {
+    flex: 1;
+    overflow: auto;
+    font-size: 12px;
+
+    &::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    &:hover::-webkit-scrollbar-track {
+        background-color: #414141;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: #784a3d;
+    }
+
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+    }
+
+    .popup-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 0;
+        color: #959da5;
+        border-radius: 3px;
+
+        .title {
+            border-bottom: 3px solid $blue;
+            padding: 10px;
+        }
+
+        .subtitle {
+            padding: 10px;
+            color: #dfe2e5;
+        }
+
+        .pointer {
+            position: absolute;
+            height: 5px;
+            margin: 0 0 0 -5px;
+            border: 5px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.8);
+        }
+    }
+}

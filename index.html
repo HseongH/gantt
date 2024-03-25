@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Simple Gantt</title>
+        <style>
+            body {
+                font-family: sans-serif;
+                background: #ccc;
+            }
+            .container {
+                width: 80%;
+                margin: 0 auto;
+            }
+            /* custom class */
+            .gantt .bar-milestone .bar {
+                fill: tomato;
+            }
+            .heading {
+                text-align: center;
+            }
+        </style>
+        <link rel="stylesheet" href="dist/frappe-gantt.css" />
+        <script src="dist/frappe-gantt.js"></script>
+        <script src="./analysisGantt.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="heading">
+                Interactive Gantt Chart entirely made in SVG!
+            </h2>
+            <div class="gantt-target"></div>
+        </div>
+    </body>
+</html>
