@@ -14,14 +14,14 @@ export default class Popup {
 
     this.hide();
 
-    this.title = this.parent.querySelector(".title");
-    this.subtitle = this.parent.querySelector(".subtitle");
-    this.pointer = this.parent.querySelector(".pointer");
+    this.title = this.parent.querySelector('.title');
+    this.subtitle = this.parent.querySelector('.subtitle');
+    this.pointer = this.parent.querySelector('.pointer');
   }
 
   show(options) {
     if (!options.target_element) {
-      throw new Error("target_element is required to show popup");
+      throw new Error('target_element is required to show popup');
     }
     const target_element = options.target_element;
 
@@ -29,7 +29,7 @@ export default class Popup {
       let html = this.custom_html(options.task);
       html += '<div class="pointer"></div>';
       this.parent.innerHTML = html;
-      this.pointer = this.parent.querySelector(".pointer");
+      this.pointer = this.parent.querySelector('.pointer');
     } else {
       // set data
       this.title.innerHTML = options.title;
@@ -44,11 +44,11 @@ export default class Popup {
       position_meta = options.target_element.getBBox();
     }
 
-    this.parent.style.left = options.x - this.parent.clientWidth / 2 + "px";
-    this.parent.style.top = position_meta.y + position_meta.height + 10 + "px";
+    this.parent.style.left = options.x - this.parent.clientWidth / 2 + 'px';
+    this.parent.style.top = position_meta.y + position_meta.height + 10 + 'px';
 
-    this.pointer.style.left = this.parent.clientWidth / 2 + "px";
-    this.pointer.style.top = "-15px";
+    this.pointer.style.left = this.parent.clientWidth / 2 + 'px';
+    this.pointer.style.top = '-15px';
 
     // show
     this.parent.style.opacity = 1;

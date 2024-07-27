@@ -1,4 +1,4 @@
-import { createSVG } from "./svg_utils";
+import { createSVG } from './svg_utils';
 
 export default class Arrow {
   constructor(gantt, from_task, to_task) {
@@ -26,7 +26,7 @@ export default class Arrow {
       this.gantt.options.header_height +
       this.gantt.options.bar_height +
       (this.gantt.options.padding + this.gantt.options.bar_height) *
-      this.from_task.task._index +
+        this.from_task.task._index +
       this.gantt.options.padding;
 
     const end_x = this.to_task.$bar.getX() - this.gantt.options.padding / 2 - 7;
@@ -34,7 +34,7 @@ export default class Arrow {
       this.gantt.options.header_height +
       this.gantt.options.bar_height / 2 +
       (this.gantt.options.padding + this.gantt.options.bar_height) *
-      this.to_task.task._index +
+        this.to_task.task._index +
       this.gantt.options.padding;
 
     const from_is_below_to =
@@ -80,15 +80,15 @@ export default class Arrow {
   }
 
   draw() {
-    this.element = createSVG("path", {
+    this.element = createSVG('path', {
       d: this.path,
-      "data-from": this.from_task.task.id,
-      "data-to": this.to_task.task.id,
+      'data-from': this.from_task.task.id,
+      'data-to': this.to_task.task.id,
     });
   }
 
   update() {
     this.calculate_path();
-    this.element.setAttribute("d", this.path);
+    this.element.setAttribute('d', this.path);
   }
 }

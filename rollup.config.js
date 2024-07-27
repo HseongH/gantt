@@ -1,13 +1,13 @@
-import sass from "rollup-plugin-sass";
-import { terser } from "rollup-plugin-terser";
+import sass from 'rollup-plugin-sass';
+import { terser } from 'rollup-plugin-terser';
 
 const dev = {
-  input: "src/index.js",
+  input: 'src/index.js',
   output: {
-    name: "Gantt",
-    file: "dist/frappe-gantt.js",
+    name: 'Gantt',
+    file: 'dist/frappe-gantt.js',
     sourcemap: true,
-    format: "iife",
+    format: 'iife',
   },
   plugins: [
     sass({
@@ -16,18 +16,18 @@ const dev = {
   ],
 };
 const prod = {
-  input: "src/index.js",
+  input: 'src/index.js',
   output: {
-    name: "Gantt",
-    file: "dist/frappe-gantt.min.js",
+    name: 'Gantt',
+    file: 'dist/frappe-gantt.min.js',
     sourcemap: true,
-    format: "iife",
+    format: 'iife',
   },
   plugins: [
     sass({
       output: true,
       options: {
-        outputStyle: "compressed",
+        outputStyle: 'compressed',
       },
     }),
     terser(),

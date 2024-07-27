@@ -1,16 +1,16 @@
 export function $(expr, con) {
-  return typeof expr === "string"
+  return typeof expr === 'string'
     ? (con || document).querySelector(expr)
     : expr || null;
 }
 
 export function createSVG(tag, attrs) {
-  const elem = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  const elem = document.createElementNS('http://www.w3.org/2000/svg', tag);
   for (let attr in attrs) {
-    if (attr === "append_to") {
+    if (attr === 'append_to') {
       const parent = attrs.append_to;
       parent.appendChild(elem);
-    } else if (attr === "innerHTML") {
+    } else if (attr === 'innerHTML') {
       elem.innerHTML = attrs.innerHTML;
     } else if (attr === 'clipPath') {
       elem.setAttribute('clip-path', 'url(#' + attrs[attr] + ')');
@@ -27,9 +27,9 @@ export function animateSVG(svgElement, attr, from, to) {
   if (animatedSvgElement === svgElement) {
     // triggered 2nd time programmatically
     // trigger artificial click event
-    const event = document.createEvent("HTMLEvents");
-    event.initEvent("click", true, true);
-    event.eventName = "click";
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('click', true, true);
+    event.eventName = 'click';
     animatedSvgElement.dispatchEvent(event);
   }
 }
@@ -39,31 +39,31 @@ function getAnimationElement(
   attr,
   from,
   to,
-  dur = "0.4s",
-  begin = "0.1s",
+  dur = '0.4s',
+  begin = '0.1s',
 ) {
-  const animEl = svgElement.querySelector("animate");
+  const animEl = svgElement.querySelector('animate');
   if (animEl) {
     $.attr(animEl, {
       attributeName: attr,
       from,
       to,
       dur,
-      begin: "click + " + begin, // artificial click
+      begin: 'click + ' + begin, // artificial click
     });
     return svgElement;
   }
 
-  const animateElement = createSVG("animate", {
+  const animateElement = createSVG('animate', {
     attributeName: attr,
     from,
     to,
     dur,
     begin,
-    calcMode: "spline",
-    values: from + ";" + to,
-    keyTimes: "0; 1",
-    keySplines: cubic_bezier("ease-out"),
+    calcMode: 'spline',
+    values: from + ';' + to,
+    keyTimes: '0; 1',
+    keySplines: cubic_bezier('ease-out'),
   });
   svgElement.appendChild(animateElement);
 
@@ -72,11 +72,11 @@ function getAnimationElement(
 
 function cubic_bezier(name) {
   return {
-    ease: ".25 .1 .25 1",
-    linear: "0 0 1 1",
-    "ease-in": ".42 0 1 1",
-    "ease-out": "0 0 .58 1",
-    "ease-in-out": ".42 0 .58 1",
+    ease: '.25 .1 .25 1',
+    linear: '0 0 1 1',
+    'ease-in': '.42 0 1 1',
+    'ease-out': '0 0 .58 1',
+    'ease-in-out': '.42 0 .58 1',
   }[name];
 }
 
@@ -120,11 +120,11 @@ $.closest = (selector, element) => {
 };
 
 $.attr = (element, attr, value) => {
-  if (!value && typeof attr === "string") {
+  if (!value && typeof attr === 'string') {
     return element.getAttribute(attr);
   }
 
-  if (typeof attr === "object") {
+  if (typeof attr === 'object') {
     for (let key in attr) {
       $.attr(element, key, attr[key]);
     }
